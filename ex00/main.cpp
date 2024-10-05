@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 17:35:04 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/05 18:25:27 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/05 22:22:47 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,68 @@ int	main(int argc, char **argv)
 		if (test == "correct" || test == "all" || test == "cor*")
 		{
 			print_header("Testing correct use of easyfind function");
-            std::vector<int> v;
+            std::vector<int> values;
+			int index;
 
-            v.push_back(1);
-            v.push_back(2);
-            v.push_back(3);
-            try
-            {
-                easyfind(v, 3);
-            }
-            catch (std::exception &e)
-            {
-                std::cout << e.what() << std::endl;
-            }
+			for (int i = 0; i < 30; ++i)
+            	values.push_back(i);
+			
+			for (int i = 0; i < 6; ++i)
+			{
+                index = easyfind(values, i * 5);
+				if (index == -1)
+				{
+					std::cout << "Could not find value " << i * 5 << std::endl;
+				}
+				else
+				{
+					std::cout << "Found value " << i * 5 << " in index " << index << std::endl;
+				}
+			}
+		}
+		if (test == "not_found" || test == "all" || test == "not*")
+		{
+			print_header("Testing not found values");
+            std::vector<int> values;
+			int index;
+
+			for (int i = 0; i < 30; ++i)
+            	values.push_back(i);
+			
+			for (int i = 0; i < 6; ++i)
+			{
+                index = easyfind(values, i * 8);
+				if (index == -1)
+				{
+					std::cout << "Could not find value " << i * 8 << std::endl;
+				}
+				else
+				{
+					std::cout << "Found value " << i * 8 << " in index " << index << std::endl;
+				}
+			}
+		}
+		if (test == "first_occurrence" || test == "all" || test == "fir*")
+		{
+			print_header("Testing the first occurrence of the repeated value");
+            std::vector<int> values;
+			int index;
+
+			for (int i = 0; i < 10; ++i)
+            	values.push_back(2);
+			
+			for (int i = 0; i < 10; ++i)
+            	values.push_back(3);
+			
+			index = easyfind(values, 3);
+			if (index == -1)
+			{
+				std::cout << "Could not find value " << 3 << std::endl;
+			}
+			else
+			{
+				std::cout << "Found value " << 3 << " in index " << index << std::endl;
+			}
 		}
 	}
 	if (argc == 1)
@@ -139,6 +188,8 @@ void	print_help(char *prog_name)
 	std::cout << "Options:" << std::endl;
 	std::cout << std::endl;
 	std::cout << "correct - Testing correct use of easyfind function" << std::endl;
+	std::cout << "not_found - Testing not found values" << std::endl;
+	std::cout << "first_occurrence - Testing the first occurrence of the repeated value" << std::endl;
 	std::cout << "all - Run all tests" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Usage example:" << std::endl;
