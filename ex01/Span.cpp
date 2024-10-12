@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:43:23 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/05 23:02:20 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:55:22 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,26 @@ Span& Span::operator=( const Span& src )
 Span::~Span( void )
 {
 	std::cout << "Span Destructor called for N: " << N << std::endl;
+}
+
+void Span::addNumber( int number )
+{
+	if (numbers.size() == N)
+		throw Span::FullException();
+	numbers.push_back(number);
+}
+
+unsigned int Span::getN( void ) const
+{
+	return (N);
+}
+
+unsigned int Span::getSize( void ) const
+{
+	return (numbers.size());
+}
+
+const char *Span::FullException::what(void) const throw()
+{
+	return ("Integers container full!");
 }

@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:28:32 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/05 22:33:15 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:59:20 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,39 @@ int	main(int argc, char **argv)
         if (test == "constructors" || test == "all" || test == "cons*")
 		{
 			print_header("Testing class constructors");
+			Span correct(100000);
+			Span copied(correct);
+			Span assigned(15);
+
+			assigned = copied;
+			print_comment("Print N values");
+			std::cout << "N values - correct copied assigned " << correct.getN() << " " << copied.getN() << " " << assigned.getN() << " " << std::endl;
+			print_comment("Destructors");
+		}
+		if (test == "add" || test == "all" || test == "a*")
+		{
+			print_header("Testing addNumber member function");
+			Span small(3);
+
+			print_comment("Adding numbers");
+			try
+			{
+				std::cout << "Size before adding 42: " << small.getSize() << std::endl;
+				small.addNumber(42);
+				std::cout << "Size before adding 24: " << small.getSize() << std::endl;
+				small.addNumber(24);
+				std::cout << "Size before adding 84: " << small.getSize() << std::endl;
+				small.addNumber(84);
+				std::cout << "Size before adding 168: " << small.getSize() << std::endl;
+				small.addNumber(168);
+				std::cout << "Size before adding 336: " << small.getSize() << std::endl;
+				small.addNumber(336);
+			}
+			catch (std::exception & e)
+			{
+				std::cerr << "Error: " << e.what() << std::endl;
+			}
+			print_comment("Destructors");
 		}
 	}
 	if (argc == 1 || test == "all")
@@ -126,6 +159,7 @@ void	print_help(char *prog_name)
 	std::cout << "Options:" << std::endl;
 	std::cout << std::endl;
     std::cout << "constructors - Testing class constructors" << std::endl;
+	std::cout << "add - Testing addNumber member function" << std::endl;
 	std::cout << "all - Run all tests" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Usage example:" << std::endl;
