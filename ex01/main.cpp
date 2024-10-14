@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:28:32 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/12 12:59:20 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:20:55 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,15 @@ int	main(int argc, char **argv)
 			assigned = copied;
 			print_comment("Print N values");
 			std::cout << "N values - correct copied assigned " << correct.getN() << " " << copied.getN() << " " << assigned.getN() << " " << std::endl;
+			print_comment("Add 500 numbers to correct, 50 to assigned and makes a new copy of correct");
+			for (unsigned int i = 0; i < 500; i++)
+				correct.addNumber(42);
+			for (unsigned int i = 0; i < 50; i++)
+				assigned.addNumber(42);
+			std::cout << "numbers size - correct assigned " << correct.getSize() << " " << assigned.getSize() << " " << std::endl;
+			Span new_copy(correct);
+			assigned = correct;
+			std::cout << "numbers size - correct copied assigned " << correct.getSize() << " " << new_copy.getSize() << " " << assigned.getSize() << " " << std::endl;
 			print_comment("Destructors");
 		}
 		if (test == "add" || test == "all" || test == "a*")

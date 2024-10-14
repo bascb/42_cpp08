@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:37:16 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/12 12:54:48 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:13:03 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <vector>
 #include <algorithm>
 #include <exception>
+#include <climits>
 
 class Span
 {
@@ -28,13 +29,20 @@ class Span
         void addNumber( int number );
         unsigned int getN( void ) const;
         unsigned int getSize( void ) const;
+        int shortestSpan( void );
         class FullException : public std::exception
+        {
+            public:
+                const char *what(void) const throw();
+        };
+        class InsufficientNumbersException : public std::exception
         {
             public:
                 const char *what(void) const throw();
         };
     private:
         unsigned int N;
+        bool is_sorted;
         std::vector<int> numbers;
 };
 
