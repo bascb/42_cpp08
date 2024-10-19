@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:28:32 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/13 10:20:55 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:07:52 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ int	main(int argc, char **argv)
 				correct.addNumber(42);
 			for (unsigned int i = 0; i < 50; i++)
 				assigned.addNumber(42);
+			assigned.printValues();
 			std::cout << "numbers size - correct assigned " << correct.getSize() << " " << assigned.getSize() << " " << std::endl;
 			Span new_copy(correct);
 			assigned = correct;
 			std::cout << "numbers size - correct copied assigned " << correct.getSize() << " " << new_copy.getSize() << " " << assigned.getSize() << " " << std::endl;
+			assigned.printValues();
 			print_comment("Destructors");
 		}
 		if (test == "add" || test == "all" || test == "a*")
@@ -76,6 +78,8 @@ int	main(int argc, char **argv)
 				small.addNumber(42);
 				std::cout << "Size before adding 24: " << small.getSize() << std::endl;
 				small.addNumber(24);
+				std::cout << small;
+				small.printValues();
 				std::cout << "Size before adding 84: " << small.getSize() << std::endl;
 				small.addNumber(84);
 				std::cout << "Size before adding 168: " << small.getSize() << std::endl;

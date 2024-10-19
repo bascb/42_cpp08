@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:37:16 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/13 10:13:03 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:20:00 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ class Span
         Span& operator=( const Span& );
         ~Span( void );
         void addNumber( int number );
+        void addNumbers( std::vector<int> numbers_vector );
         unsigned int getN( void ) const;
         unsigned int getSize( void ) const;
+        bool getIsSorted( void ) const;
+        void printValues( void ) const;
         int shortestSpan( void );
         class FullException : public std::exception
         {
@@ -45,5 +48,7 @@ class Span
         bool is_sorted;
         std::vector<int> numbers;
 };
+
+std::ostream &operator<<(std::ostream &os, const Span &item);
 
 #endif

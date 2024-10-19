@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:43:23 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/13 10:46:27 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:25:45 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ void Span::addNumber( int number )
 	is_sorted = false;
 }
 
+void Span::addNumbers( std::vector<int> numbers_vector )
+{
+	if (numbers.size() + numbers_vector.size() >= N)
+		throw Span::FullException();
+	numbers.insert(numbers.end(), numbers_vector.begin(), numbers_vector.end());
+}
+
 unsigned int Span::getN( void ) const
 {
 	return (N);
@@ -56,6 +63,26 @@ unsigned int Span::getN( void ) const
 unsigned int Span::getSize( void ) const
 {
 	return (numbers.size());
+}
+
+bool Span::getIsSorted( void ) const
+{
+	return (is_sorted);
+}
+
+
+void Span::printValues( void ) const
+{
+	std::vector<int>::const_iterator it;
+	int printed = 0;
+
+	for (it = numbers.begin(); it != numbers.end(); ++it)
+	{
+		std::cout << *it << " ";
+		if (++printed % 40 == 0)
+			std::cout << std::endl;
+	}
+	std::cout << std::endl;
 }
 
 int Span::shortestSpan( void )
@@ -84,4 +111,15 @@ const char *Span::FullException::what(void) const throw()
 const char *Span::InsufficientNumbersException::what(void) const throw()
 {
 	return ("Insufficient numbers!");
+}
+
+std::ostream &operator<<(std::ostream &os, const Span &item)
+{	
+	os << "N: " << item.getN() << " Size: " << item.getSize() << " Is sorted? ";
+	if (item.getIsSorted() == true)
+		os << "yes";
+	else
+		os << "no";
+	os << std::endl;
+	return (os);
 }
