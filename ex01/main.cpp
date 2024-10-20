@@ -6,11 +6,13 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:28:32 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/19 12:07:52 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:48:01 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <fstream>
+#include <numeric>
 #include "Span.hpp"
 
 #define WIDTH 60
@@ -58,34 +60,105 @@ int	main(int argc, char **argv)
 				correct.addNumber(42);
 			for (unsigned int i = 0; i < 50; i++)
 				assigned.addNumber(42);
-			assigned.printValues();
 			std::cout << "numbers size - correct assigned " << correct.getSize() << " " << assigned.getSize() << " " << std::endl;
 			Span new_copy(correct);
 			assigned = correct;
 			std::cout << "numbers size - correct copied assigned " << correct.getSize() << " " << new_copy.getSize() << " " << assigned.getSize() << " " << std::endl;
-			assigned.printValues();
 			print_comment("Destructors");
 		}
 		if (test == "add" || test == "all" || test == "a*")
 		{
 			print_header("Testing addNumber member function");
 			Span small(3);
-
-			print_comment("Adding numbers");
+			print_comment("Going to add some numbers to test addNumber meber function");
 			try
 			{
-				std::cout << "Size before adding 42: " << small.getSize() << std::endl;
+				std::cout << small;
+				print_comment("Adding number 42");
 				small.addNumber(42);
-				std::cout << "Size before adding 24: " << small.getSize() << std::endl;
+				std::cout << small;
+				print_comment("Adding number 24");
 				small.addNumber(24);
 				std::cout << small;
-				small.printValues();
-				std::cout << "Size before adding 84: " << small.getSize() << std::endl;
+				print_comment("Adding number 84");
 				small.addNumber(84);
-				std::cout << "Size before adding 168: " << small.getSize() << std::endl;
+				std::cout << small;
+				print_comment("Adding number 168");
 				small.addNumber(168);
-				std::cout << "Size before adding 336: " << small.getSize() << std::endl;
+				std::cout << small;
+				print_comment("Adding number 336");
 				small.addNumber(336);
+				std::cout << small;
+			}
+			catch (std::exception & e)
+			{
+				std::cerr << "Error: " << e.what() << std::endl;
+			}
+			print_comment("Destructors");
+		}
+		if (test == "range" || test == "all" || test == "ran*")
+		{
+			print_header("Testing range insertion member function");
+			Span large(10000);
+			std::vector<int> range(10000,100);
+			std::vector<int> more(10,10);
+			
+			try
+			{
+				print_comment("Let's insert a large vector");
+				std::cout << large;
+				print_comment("Going to add a vector with 10000 numbers with value 100");
+				large.addNumbers(range);
+				std::ofstream fout("large.txt");
+				if (fout.is_open())
+				{
+					fout << large;
+					fout.close();
+					print_comment("The class content was printed to file large.txt");
+				}
+				print_comment("Printing the result for shortest and largest span. They must be 0");
+				std::cout << "Shortest span: " << large.shortestSpan() << std::endl;
+				std::cout << "Largest span: " << large.longestSpan() << std::endl;
+				print_comment("Trying to add a vector with 10 numbers");
+				large.addNumbers(more);
+				std::ofstream fout2("more.txt");
+				if (fout2.is_open())
+				{
+					fout2 << large;
+					fout2.close();
+				}
+			}
+			catch (std::exception & e)
+			{
+				std::cerr << "Error: " << e.what() << std::endl;
+			}
+			print_comment("Destructors");
+		}
+		if (test == "span" || test == "all" || test == "sp*")
+		{
+			print_header("Testing span functions with a large vector");
+			Span large(10000);
+			std::vector<int> range(10000);
+			
+			try
+			{
+				for (int i = 0; i < 10000; ++i)
+					range[i] = i;
+				print_comment("Let's insert a large vector");
+				std::cout << large;
+				print_comment("Going to add a vector with 10000 numbers with value 100");
+				large.addNumbers(range);
+				std::ofstream fout("large_span.txt");
+				if (fout.is_open())
+				{
+					fout << large;
+					fout.close();
+					print_comment("The class content was printed to file large_span.txt");
+				}
+				print_comment("Printing the result for shortest and largest span. They must be:");
+				print_comment("Shortest: 1 Largest: 9999");
+				std::cout << "Shortest span: " << large.shortestSpan() << std::endl;
+				std::cout << "Largest span: " << large.longestSpan() << std::endl;
 			}
 			catch (std::exception & e)
 			{
@@ -97,7 +170,14 @@ int	main(int argc, char **argv)
 	if (argc == 1 || test == "all")
 	{
 		print_header("Subject example");
-        
+		Span sp = Span(5);
+		sp.addNumber(6);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
 	}
 	return (0);
 }
@@ -173,6 +253,8 @@ void	print_help(char *prog_name)
 	std::cout << std::endl;
     std::cout << "constructors - Testing class constructors" << std::endl;
 	std::cout << "add - Testing addNumber member function" << std::endl;
+	std::cout << "range - Testing range insertion member function" << std::endl;
+	std::cout << "span - Testing span functions with a large vector" << std::endl;
 	std::cout << "all - Run all tests" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Usage example:" << std::endl;

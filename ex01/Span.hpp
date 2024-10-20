@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:37:16 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/19 13:20:00 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/10/20 10:42:57 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ class Span
         unsigned int getN( void ) const;
         unsigned int getSize( void ) const;
         bool getIsSorted( void ) const;
-        void printValues( void ) const;
+        void printValues( std::ostream &os ) const;
         int shortestSpan( void );
+        int longestSpan( void );
         class FullException : public std::exception
         {
             public:
@@ -47,6 +48,7 @@ class Span
         unsigned int N;
         bool is_sorted;
         std::vector<int> numbers;
+        void sort( void );
 };
 
 std::ostream &operator<<(std::ostream &os, const Span &item);
