@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:01:35 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/11/09 12:46:23 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/11/23 13:21:12 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ int	main(int argc, char **argv)
 		{
 			print_header("Testing class constructors");
 			std::vector<int> myvector (2,200);
+			std::vector<int> yourvector (2,300);
 			MutantStack<int> first;
-			MutantStack<int,std::vector<int> > second (myvector);
+			MutantStack<int, std::vector<int> > second (myvector);
+			MutantStack<int> third(first);
+			MutantStack<int, std::vector<int> > fourth (yourvector);
+			fourth = second;
 			
 			print_comment("Destructors");
 		}

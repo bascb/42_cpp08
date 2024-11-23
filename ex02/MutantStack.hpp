@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 11:41:24 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/11/09 13:08:53 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/11/23 13:16:21 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ class MutantStack : public std::stack<T, C>
 {
     public:
         MutantStack( void );
-        MutantStack( typename C = std::deque<T> );
+        MutantStack( C );
+        MutantStack( const MutantStack& );
+        MutantStack& operator=( const MutantStack& );
         ~MutantStack( void );
 };
 
