@@ -6,12 +6,13 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 13:01:35 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/11/23 13:21:12 by bcastelo         ###   ########.fr       */
+/*   Updated: 2024/12/14 10:32:27 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include "MutantStack.hpp"
 
 #define WIDTH 60
@@ -47,20 +48,80 @@ int	main(int argc, char **argv)
         if (test == "const" || test == "all" || test == "c*")
 		{
 			print_header("Testing class constructors");
-			std::vector<int> myvector (2,200);
-			std::vector<int> yourvector (2,300);
 			MutantStack<int> first;
-			MutantStack<int, std::vector<int> > second (myvector);
-			MutantStack<int> third(first);
-			MutantStack<int, std::vector<int> > fourth (yourvector);
-			fourth = second;
+			MutantStack<int> second(first);
+			MutantStack<int> third;
+			third = second;
 			
 			print_comment("Destructors");
+		}
+		if (test == "iterators" || test == "all" || test == "it*")
+		{
+			print_header("Testing MutantStack iterators");
+			MutantStack<int> istack;
+
+			istack.push(1);
+			istack.push(2);
+			istack.push(3);
+			istack.push(4);
+			istack.push(5);
+			MutantStack<int>::iterator it = istack.begin();
+			MutantStack<int>::iterator ite = istack.end();
+			while (it != ite)
+			{
+				std::cout << *it << std::endl;
+				++it;
+			}
 		}
 	}
 	if (argc == 1 || test == "all")
 	{
 		print_header("Summary test");
+		print_comment("With MutantStack");
+		MutantStack<int> mstack;
+
+		mstack.push(5);
+		mstack.push(17);
+		std::cout << mstack.top() << std::endl;
+		mstack.pop();
+		std::cout << mstack.size() << std::endl;
+		mstack.push(3);
+		mstack.push(5);
+		mstack.push(737);
+		//[...]
+		mstack.push(0);
+		MutantStack<int>::iterator it = mstack.begin();
+		MutantStack<int>::iterator ite = mstack.end();
+		++it;
+		--it;
+		while (it != ite)
+		{
+			std::cout << *it << std::endl;
+			++it;
+		}
+		std::stack<int> s(mstack);
+		print_comment("With List");
+		std::list<int> mlist;
+
+		mlist.push_back(5);
+		mlist.push_back(17);
+		std::cout << mlist.back() << std::endl;
+		mlist.pop_back();
+		std::cout << mlist.size() << std::endl;
+		mlist.push_back(3);
+		mlist.push_back(5);
+		mlist.push_back(737);
+		//[...]
+		mlist.push_back(0);
+		std::list<int>::iterator itl = mlist.begin();
+		std::list<int>::iterator itle = mlist.end();
+		++itl;
+		--itl;
+		while (itl != itle)
+		{
+			std::cout << *itl << std::endl;
+			++itl;
+		}
 	}
 	return (0);
 }
@@ -135,6 +196,7 @@ void	print_help(char *prog_name)
 	std::cout << "Options:" << std::endl;
 	std::cout << std::endl;
     std::cout << "const - Testing class constructors" << std::endl;
+	std::cout << "iterators - Testing MutantStack iterators" << std::endl;
 	std::cout << "all - Run all tests" << std::endl;
 	std::cout << std::endl;
 	std::cout << "Usage example:" << std::endl;
