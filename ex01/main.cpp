@@ -6,7 +6,7 @@
 /*   By: bcastelo <bcastelo@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 22:28:32 by bcastelo          #+#    #+#             */
-/*   Updated: 2024/10/20 12:48:01 by bcastelo         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:57:00 by bcastelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 		{
 			print_header("Testing addNumber member function");
 			Span small(3);
-			print_comment("Going to add some numbers to test addNumber meber function");
+			print_comment("Going to add some numbers to test addNumber member function");
 			try
 			{
 				std::cout << small;
